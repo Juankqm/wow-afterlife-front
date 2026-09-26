@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { FormEvent, ChangeEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 
 interface FormState {
@@ -9,6 +9,11 @@ interface FormState {
   password: string;
   confirmPassword: string;
   acceptsRules: boolean;
+}
+
+interface RegisterResponse {
+  success: boolean;
+  message: string;
 }
 
 const initialState: FormState = {
@@ -24,12 +29,20 @@ export default function Register() {
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleChange =
     (field: keyof FormState) =>
     (e: ChangeEvent<HTMLInputElement>) => {
       const value =
-        field === "acceptsRules" ? e.target.checked : e.target.value;
-      setForm((prev) => ({ ...prev, [field]: value }));
+        field === "acceptsRules"
+          ? e.target.checked
+          : e.target.value;
+
+      setForm((prev) => ({
+        ...prev,
+        [field]: value,
+      }));
     };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -37,29 +50,72 @@ export default function Register() {
     setError(null);
 
     if (form.username.trim().length < 3) {
-      setError("El nombre de usuario debe tener al menos 3 caracteres.");
+      setError(
+        "El nombre de usuario debe tener al menos 3 caracteres."
+      );
       return;
     }
+
     if (form.password.length < 8) {
-      setError("La contraseña debe tener al menos 8 caracteres.");
+      setError(
+        "La contraseña debe tener al menos 8 caracteres."
+      );
       return;
     }
+
     if (form.password !== form.confirmPassword) {
       setError("Las contraseñas no coinciden.");
       return;
     }
+
     if (!form.acceptsRules) {
-      setError("Tienes que aceptar las reglas del reino para continuar.");
+      setError(
+        "Tienes que aceptar las reglas del reino para continuar."
+      );
       return;
     }
 
     setSubmitting(true);
+
     try {
-      // TODO: reemplazar por la llamada real a tu API de registro
-      // await fetch("/api/register", { method: "POST", body: JSON.stringify(form) });
-      console.log("Registrando", form);
-    } catch {
-      setError("No se pudo crear la cuenta. Intenta de nuevo en un momento.");
+      const response = await fetch(
+        "http://localhost:8080/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: form.username.trim(),
+            password: form.password,
+            email: form.email.trim(),
+          }),
+        }
+      );
+
+      const data: RegisterResponse = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "No se pudo crear la cuenta.");
+      }
+
+      // Cuenta creada correctamente
+      setForm(initialState);
+
+      navigate("/login", {
+        state: {
+          message: "Cuenta creada correctamente. Ya puedes iniciar sesión.",
+        },
+      });
+
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError(
+          "No se pudo crear la cuenta. Intenta de nuevo en un momento."
+        );
+      }
     } finally {
       setSubmitting(false);
     }
@@ -69,14 +125,22 @@ export default function Register() {
     <section className="register">
       <div className="register__panel">
         <h1 className="register__title">Crea tu cuenta</h1>
+
         <p className="register__lede">
           Un usuario y una contraseña — sin correo de verificación, sin
           pagos. Los usarás para el sitio y para entrar al juego.
         </p>
 
-        <form className="register__form" onSubmit={handleSubmit} noValidate>
+        <form
+          className="register__form"
+          onSubmit={handleSubmit}
+          noValidate
+        >
           <label className="register__field">
-            <span className="register__label">Nombre de usuario</span>
+            <span className="register__label">
+              Nombre de usuario
+            </span>
+
             <input
               className="register__input"
               type="text"
@@ -88,7 +152,10 @@ export default function Register() {
           </label>
 
           <label className="register__field">
-            <span className="register__label">Correo electrónico</span>
+            <span className="register__label">
+              Correo electrónico
+            </span>
+
             <input
               className="register__input"
               type="email"
@@ -100,7 +167,10 @@ export default function Register() {
           </label>
 
           <label className="register__field">
-            <span className="register__label">Contraseña</span>
+            <span className="register__label">
+              Contraseña
+            </span>
+
             <input
               className="register__input"
               type="password"
@@ -109,11 +179,17 @@ export default function Register() {
               value={form.password}
               onChange={handleChange("password")}
             />
-            <span className="register__hint">Mínimo 8 caracteres.</span>
+
+            <span className="register__hint">
+              Mínimo 8 caracteres.
+            </span>
           </label>
 
           <label className="register__field">
-            <span className="register__label">Confirmar contraseña</span>
+            <span className="register__label">
+              Confirmar contraseña
+            </span>
+
             <input
               className="register__input"
               type="password"
@@ -130,8 +206,12 @@ export default function Register() {
               checked={form.acceptsRules}
               onChange={handleChange("acceptsRules")}
             />
+
             <span>
-              Acepto las <Link to="/reglas">reglas del reino</Link>
+              Acepto las{" "}
+              <Link to="/reglas">
+                reglas del reino
+              </Link>
             </span>
           </label>
 
@@ -146,12 +226,17 @@ export default function Register() {
             type="submit"
             disabled={submitting}
           >
-            {submitting ? "Creando cuenta…" : "Crear cuenta"}
+            {submitting
+              ? "Creando cuenta…"
+              : "Crear cuenta"}
           </button>
         </form>
 
         <p className="register__login-hint">
-          ¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link>
+          ¿Ya tienes cuenta?{" "}
+          <Link to="/login">
+            Inicia sesión
+          </Link>
         </p>
       </div>
     </section>
