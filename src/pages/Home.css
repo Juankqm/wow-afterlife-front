@@ -1,0 +1,83 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.server-section {
+  background: #081120;
+
+  display: flex;
+  justify-content: center;
+
+  padding: 4rem 2rem;
+}
+
+.server-card {
+  text-align: center;
+
+  padding: 2rem;
+
+  background: #111827;
+
+  border-radius: 16px;
+
+  width: 100%;
+  max-width: 700px;
+}
+
+.server-card h2 {
+  font-size: 2rem;
+
+  margin-bottom: 1rem;
+
+  color: #7dd3fc;
+}
+
+.server-card p {
+  margin-bottom: 1rem;
+}
+
+.online {
+  color: #22c55e;
+  font-weight: bold;
+}
+
+.features {
+  background: #0f172a;
+
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+
+  padding: 4rem 2rem;
+
+  flex-wrap: wrap;
+}
+
+.feature-card {
+  background: #111827;
+
+  padding: 2rem;
+
+  width: 300px;
+
+  border-radius: 16px;
+
+  text-align: center;
+}
+
+.feature-card h3 {
+  color: #7dd3fc;
+
+  margin-bottom: 1rem;
+}

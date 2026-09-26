@@ -1,0 +1,83 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 0 32px;
+  height: 76px;
+  background: var(--bg-panel);
+  border-bottom: 2px solid var(--ice-500);
+}
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.navbar__logo {
+  height: 52px;
+  width: auto;
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.navbar__link {
+  font-family: "Inter", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-400);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.navbar__link:hover {
+  color: var(--ice-300);
+}
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.navbar__login {
+  font-family: "Inter", sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-100);
+  text-decoration: none;
+}
+
+.navbar__login:hover {
+  color: var(--ice-300);
+}
+
+.navbar__cta {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 9px 18px;
+  border-radius: 2px;
+  background: var(--gold-400);
+  color: #1a1204;
+  text-decoration: none;
+  border: 1px solid var(--gold-400);
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.navbar__cta:hover {
+  background: var(--gold-500);
+  border-color: var(--gold-500);
+}
+
+@media (max-width: 860px) {
+  .navbar__links {
+    display: none;
+  }
+}
