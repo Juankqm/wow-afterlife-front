@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../assets/logo-afterlife.png";
 
@@ -11,25 +12,25 @@ const navLinks = [
 export default function Navbar() {
   return (
     <header className="navbar">
-      <a className="navbar__brand" href="/" aria-label="Afterlife, inicio">
+      <Link className="navbar__brand" to="/" aria-label="Afterlife, inicio">
         <img className="navbar__logo" src={logo} alt="Afterlife" />
-      </a>
+      </Link>
 
       <nav className="navbar__links" aria-label="Navegación principal">
         {navLinks.map((link) => (
-          <a key={link.href} className="navbar__link" href={link.href}>
+          <Link key={link.href} className="navbar__link" to={link.href}>
             {link.label}
-          </a>
+          </Link>
         ))}
       </nav>
 
       <div className="navbar__actions">
-        <a className="navbar__login" href="/login">
+        <Link className="navbar__login" to="/login">
           Iniciar sesión
-        </a>
-        <a className="navbar__cta" href="/registro">
+        </Link>
+        <Link className="navbar__cta" to="/registro">
           Crear cuenta
-        </a>
+        </Link>
       </div>
     </header>
   );

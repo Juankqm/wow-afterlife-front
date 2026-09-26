@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { FormEvent, ChangeEvent } from "react";
+import { Link } from "react-router-dom";
 import "./Register.css";
 
 interface FormState {
@@ -69,7 +70,8 @@ export default function Register() {
       <div className="register__panel">
         <h1 className="register__title">Crea tu cuenta</h1>
         <p className="register__lede">
-          Un usuario y una contraseña. Los usarás para el sitio y para entrar al juego.
+          Un usuario y una contraseña — sin correo de verificación, sin
+          pagos. Los usarás para el sitio y para entrar al juego.
         </p>
 
         <form className="register__form" onSubmit={handleSubmit} noValidate>
@@ -129,7 +131,7 @@ export default function Register() {
               onChange={handleChange("acceptsRules")}
             />
             <span>
-              Acepto las <a href="/reglas">reglas del reino</a>
+              Acepto las <Link to="/reglas">reglas del reino</Link>
             </span>
           </label>
 
@@ -149,7 +151,7 @@ export default function Register() {
         </form>
 
         <p className="register__login-hint">
-          ¿Ya tienes cuenta? <a href="/login">Inicia sesión</a>
+          ¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link>
         </p>
       </div>
     </section>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./Hero.css";
 
 interface RealmStat {
@@ -6,9 +7,9 @@ interface RealmStat {
 }
 
 const realmStats: RealmStat[] = [
-  { label: "Realmlist", value: "173.212.204.29" },
+  { label: "Jugadores en línea", value: "128" },
+  { label: "Uptime (30 días)", value: "99.2%" },
   { label: "Tasa de experiencia", value: "x3" },
-  { label: "Tasa de profesiones", value: "x2" },
   { label: "Parche", value: "3.3.5a" },
 ];
 
@@ -25,12 +26,15 @@ export default function Hero() {
         <p className="hero__lede">
           Afterlife es un servidor privado de World of Warcraft: Wrath of the
           Lich King, corriendo en AzerothCore. Sin pagos, sin acelerones
-          artificiales.
+          artificiales — solo Northrend como lo recuerdas.
         </p>
         <div className="hero__actions">
-          <a className="hero__cta hero__cta--primary" href="/registro">
+          <Link className="hero__cta hero__cta--primary" to="/registro">
             Crear cuenta
-          </a>
+          </Link>
+          <Link className="hero__cta hero__cta--ghost" to="/descargas">
+            Descargar cliente
+          </Link>
         </div>
       </div>
 
