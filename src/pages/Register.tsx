@@ -12,8 +12,8 @@ interface FormState {
 }
 
 interface RegisterResponse {
-  success: boolean;
-  message: string;
+  success?: boolean;
+  message?: string;
 }
 
 const initialState: FormState = {
@@ -38,26 +38,26 @@ export default function Register() {
 
   const handleChange =
     (field: keyof FormState) =>
-      (e: ChangeEvent<HTMLInputElement>) => {
-        const value =
-          field === "acceptsRules"
-            ? e.target.checked
-            : e.target.value;
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const value =
+        field === "acceptsRules"
+          ? e.target.checked
+          : e.target.value;
 
-        setForm((prev) => ({
-          ...prev,
-          [field]: value,
-        }));
+      setForm((prev) => ({
+        ...prev,
+        [field]: value,
+      }));
 
-        // Limpiamos los mensajes cuando el usuario modifica el formulario
-        if (error) {
-          setError(null);
-        }
+      // Limpiar mensajes cuando el usuario modifica el formulario
+      if (error) {
+        setError(null);
+      }
 
-        if (success) {
-          setSuccess(null);
-        }
-      };
+      if (success) {
+        setSuccess(null);
+      }
+    };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -122,7 +122,7 @@ export default function Register() {
 
     try {
       const response = await fetch(
-        "http://localhost:8080/api/auth/register",
+        "http://173.212.204.29:8080/api/auth/register",
         {
           method: "POST",
 
@@ -138,18 +138,39 @@ export default function Register() {
         }
       );
 
-      // Intentamos leer la respuesta JSON
-      const data: RegisterResponse = await response.json();
+      let data: RegisterResponse = {};
+
+      // Intentamos leer JSON
+      try {
+        data = await response.json();
+      } catch {
+        // El backend podría responder sin cuerpo JSON
+      }
 
       // =========================
-      // ERROR DEL BACKEND
+      // CUENTA YA EXISTE
+      // =========================
+
+      if (response.status === 409) {
+        setError(
+          data.message ||
+          "La cuenta ya existe."
+        );
+
+        return;
+      }
+
+      // =========================
+      // OTRO ERROR DEL BACKEND
       // =========================
 
       if (!response.ok) {
-        throw new Error(
+        setError(
           data.message ||
           "No se pudo crear la cuenta."
         );
+
+        return;
       }
 
       // =========================
@@ -164,18 +185,20 @@ export default function Register() {
       // Limpiamos el formulario
       setForm(initialState);
 
+      // Ocultamos las contraseñas
+      setShowPassword(false);
+      setShowConfirmPassword(false);
+
     } catch (error) {
 
-      if (error instanceof Error) {
+      console.error(
+        "Error conectando con la API:",
+        error
+      );
 
-        setError(error.message);
-
-      } else {
-
-        setError(
-          "No se pudo crear la cuenta. Intenta de nuevo en un momento."
-        );
-      }
+      setError(
+        "No se pudo conectar con el servidor. Intenta de nuevo en un momento."
+      );
 
     } finally {
 
@@ -218,6 +241,7 @@ export default function Register() {
               value={form.username}
               onChange={handleChange("username")}
               disabled={submitting}
+              maxLength={32}
             />
           </label>
 
@@ -240,15 +264,21 @@ export default function Register() {
           </label>
 
           {/* PASSWORD */}
+
           <label className="register__field">
             <span className="register__label">
               Contraseña
             </span>
 
             <div className="register__password-wrapper">
+
               <input
                 className="register__input"
-                type={showPassword ? "text" : "password"}
+                type={
+                  showPassword
+                    ? "text"
+                    : "password"
+                }
                 name="password"
                 autoComplete="new-password"
                 value={form.password}
@@ -259,7 +289,11 @@ export default function Register() {
               <button
                 type="button"
                 className="register__password-toggle"
-                onClick={() => setShowPassword((prev) => !prev)}
+                onClick={() =>
+                  setShowPassword(
+                    (prev) => !prev
+                  )
+                }
                 aria-label={
                   showPassword
                     ? "Ocultar contraseña"
@@ -268,13 +302,14 @@ export default function Register() {
               >
                 {showPassword ? "🙈" : "👁️"}
               </button>
+
             </div>
 
             <span className="register__hint">
               Mínimo 8 caracteres.
             </span>
-          </label>
 
+          </label>
 
           {/* CONFIRM PASSWORD */}
 
@@ -284,9 +319,14 @@ export default function Register() {
             </span>
 
             <div className="register__password-wrapper">
+
               <input
                 className="register__input"
-                type={showConfirmPassword ? "text" : "password"}
+                type={
+                  showConfirmPassword
+                    ? "text"
+                    : "password"
+                }
                 name="confirmPassword"
                 autoComplete="new-password"
                 value={form.confirmPassword}
@@ -298,7 +338,9 @@ export default function Register() {
                 type="button"
                 className="register__password-toggle"
                 onClick={() =>
-                  setShowConfirmPassword((prev) => !prev)
+                  setShowConfirmPassword(
+                    (prev) => !prev
+                  )
                 }
                 aria-label={
                   showConfirmPassword
@@ -308,13 +350,14 @@ export default function Register() {
               >
                 {showConfirmPassword ? "🙈" : "👁️"}
               </button>
+
             </div>
           </label>
-
 
           {/* RULES */}
 
           <label className="register__checkbox">
+
             <input
               type="checkbox"
               checked={form.acceptsRules}
@@ -328,6 +371,7 @@ export default function Register() {
                 reglas del reino
               </Link>
             </span>
+
           </label>
 
           {/* ERROR */}
