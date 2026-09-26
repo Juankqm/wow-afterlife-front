@@ -1,0 +1,144 @@
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 96px 32px 120px;
+  background: var(--bg-void);
+  color: var(--text-100);
+}
+
+.register__panel {
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid var(--border-frost);
+  background: var(--bg-panel);
+  padding: 40px;
+}
+
+.register__title {
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  margin: 0 0 12px;
+}
+
+.register__lede {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--text-400);
+  margin: 0 0 32px;
+}
+
+.register__form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.register__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.register__label {
+  font-family: "Inter", sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-400);
+}
+
+.register__input {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9375rem;
+  color: var(--text-100);
+  background: var(--bg-void);
+  border: 1px solid var(--border-frost);
+  border-radius: 2px;
+  padding: 11px 14px;
+  transition: border-color 150ms ease;
+}
+
+.register__input:focus {
+  outline: none;
+  border-color: var(--ice-500);
+}
+
+.register__hint {
+  font-family: "Inter", sans-serif;
+  font-size: 0.75rem;
+  color: var(--text-400);
+}
+
+.register__checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: "Inter", sans-serif;
+  font-size: 0.8125rem;
+  color: var(--text-400);
+}
+
+.register__checkbox input {
+  margin-top: 3px;
+}
+
+.register__checkbox a {
+  color: var(--ice-300);
+}
+
+.register__error {
+  font-family: "Inter", sans-serif;
+  font-size: 0.8125rem;
+  color: #f28b82;
+  margin: 0;
+}
+
+.register__submit {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 13px 26px;
+  border-radius: 2px;
+  background: var(--gold-400);
+  color: #1a1204;
+  border: 1px solid var(--gold-400);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, opacity 150ms ease;
+}
+
+.register__submit:hover:not(:disabled) {
+  background: var(--gold-500);
+  border-color: var(--gold-500);
+}
+
+.register__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.register__login-hint {
+  font-family: "Inter", sans-serif;
+  font-size: 0.8125rem;
+  color: var(--text-400);
+  text-align: center;
+  margin: 24px 0 0;
+}
+
+.register__login-hint a {
+  color: var(--ice-300);
+}
+
+@media (max-width: 520px) {
+  .register__steps {
+    flex-wrap: wrap;
+    row-gap: 12px;
+  }
+
+  .register__panel {
+    padding: 28px;
+  }
+}
