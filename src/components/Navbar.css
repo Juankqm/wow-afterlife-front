@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  padding: 0 32px;
+  padding: 0 60px;
   height: 92px;
   background: var(--bg-panel);
   border-bottom: 2px solid var(--ice-500);
