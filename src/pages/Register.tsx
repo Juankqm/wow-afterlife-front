@@ -118,7 +118,8 @@ export default function Register() {
 
     try {
       const response = await fetch(
-        "https://supplied-updates-comp-slowly.trycloudflare.com/api/auth/register",
+                      
+        "https://installed-praise-laws-horizon.trycloudflare.com/api/auth/register",
         {
           method: "POST",
           headers: {
