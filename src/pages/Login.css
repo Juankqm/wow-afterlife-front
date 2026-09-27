@@ -1,0 +1,115 @@
+.login {
+  min-height: calc(100vh - 92px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-void);
+  padding: 40px 20px;
+}
+
+.login__panel {
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid var(--border-frost);
+  background: var(--bg-panel);
+  padding: 40px 32px;
+}
+
+.login__title {
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: var(--text-100);
+  margin: 0 0 10px;
+}
+
+.login__lede {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9375rem;
+  color: var(--text-400);
+  margin: 0 0 28px;
+  line-height: 1.5;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.login__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login__label {
+  font-family: "Inter", sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-400);
+}
+
+.login__input {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9375rem;
+  color: var(--text-100);
+  background: var(--bg-void);
+  border: 1px solid var(--border-frost);
+  border-radius: 2px;
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color 150ms ease;
+}
+
+.login__input:focus {
+  border-color: var(--ice-500);
+}
+
+.login__error {
+  font-family: "Inter", sans-serif;
+  font-size: 0.8125rem;
+  color: #f87171;
+  margin: 0;
+}
+
+.login__submit {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  padding: 12px 24px;
+  border-radius: 2px;
+  background: var(--gold-400);
+  color: #1a1204;
+  border: 1px solid var(--gold-400);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+  margin-top: 8px;
+}
+
+.login__submit:hover:not(:disabled) {
+  background: var(--gold-500);
+  border-color: var(--gold-500);
+}
+
+.login__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.login__footer {
+  font-family: "Inter", sans-serif;
+  font-size: 0.875rem;
+  color: var(--text-400);
+  margin: 24px 0 0;
+  text-align: center;
+}
+
+.login__link {
+  color: var(--ice-300);
+  text-decoration: none;
+}
+
+.login__link:hover {
+  text-decoration: underline;
+}
