@@ -26,38 +26,34 @@ const initialState: FormState = {
 
 export default function Register() {
   const [form, setForm] = useState<FormState>(initialState);
-
   const [error, setError] = useState<string | null>(null);
-
   const [success, setSuccess] = useState<string | null>(null);
-
   const [submitting, setSubmitting] = useState(false);
-
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange =
     (field: keyof FormState) =>
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const value =
-        field === "acceptsRules"
-          ? e.target.checked
-          : e.target.value;
+      (e: ChangeEvent<HTMLInputElement>) => {
+        const value =
+          field === "acceptsRules"
+            ? e.target.checked
+            : e.target.value;
 
-      setForm((prev) => ({
-        ...prev,
-        [field]: value,
-      }));
+        setForm((prev) => ({
+          ...prev,
+          [field]: value,
+        }));
 
-      // Limpiar mensajes cuando el usuario modifica el formulario
-      if (error) {
-        setError(null);
-      }
+        // Limpiar mensajes cuando el usuario modifica el formulario
+        if (error) {
+          setError(null);
+        }
 
-      if (success) {
-        setSuccess(null);
-      }
-    };
+        if (success) {
+          setSuccess(null);
+        }
+      };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -122,14 +118,12 @@ export default function Register() {
 
     try {
       const response = await fetch(
-        "http://173.212.204.29:8080/api/auth/register",
+        "https://supplied-updates-comp-slowly.trycloudflare.com/api/auth/register",
         {
           method: "POST",
-
           headers: {
             "Content-Type": "application/json",
           },
-
           body: JSON.stringify({
             username: username,
             password: form.password,
