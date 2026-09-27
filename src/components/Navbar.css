@@ -19,7 +19,7 @@
 .navbar__logo {
   height: 70px;
   width: auto;
-   object-fit: contain;
+  object-fit: contain;
 }
 
 .navbar__links {
@@ -29,16 +29,33 @@
 }
 
 .navbar__link {
+  position: relative;
   font-family: "Inter", sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--text-400);
   text-decoration: none;
+  padding-bottom: 4px;
   transition: color 150ms ease;
 }
 
+.navbar__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold-400);
+  transition: width 250ms ease;
+}
+
 .navbar__link:hover {
-  color: var(--ice-300);
+  color: var(--gold-400);
+}
+
+.navbar__link:hover::after {
+  width: 100%;
 }
 
 .navbar__actions {
